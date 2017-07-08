@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class SphereIntake extends Subsystem {
+public class AscendModule extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -16,9 +16,9 @@ public class SphereIntake extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-    public void setSheoomp(double goSpeedracer){
-    	Robot.sheOomp.setSpeed(-goSpeedracer);
+    public void setArise(double Rubar){
+    	Robot.climberLeft.setSpeed(Math.abs(Rubar));
+    	Robot.climberTwo.setSpeed(Math.abs(Rubar));
     }
-    
 }
 

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team484.robot.commands.ExampleCommand;
+import org.usfirst.frc.team484.robot.subsystems.AscendModule;
 import org.usfirst.frc.team484.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team484.robot.subsystems.SphereIntake;
 
@@ -22,12 +23,15 @@ import org.usfirst.frc.team484.robot.subsystems.SphereIntake;
  */
 public class Robot extends IterativeRobot {
 	public static final VictorSP sheOomp = new VictorSP(3);
+	public static final VictorSP climberLeft = new VictorSP(0);
+	public static final VictorSP climberTwo = new VictorSP(1);
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static final SphereIntake sphereIntake = new SphereIntake();
+	public static final AscendModule ascendModule = new AscendModule();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.

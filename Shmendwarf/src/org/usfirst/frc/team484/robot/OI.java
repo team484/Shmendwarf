@@ -7,18 +7,21 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team484.robot.commands.AntiSheoomp;
 import org.usfirst.frc.team484.robot.commands.ExampleCommand;
 import org.usfirst.frc.team484.robot.commands.Sheoomp;
+import org.usfirst.frc.team484.robot.commands.Wheoop;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	Joystick clink = new Joystick(0);
+	public static Joystick clink = new Joystick(0);
 	Button gosheoompButton = new JoystickButton(clink,1);
 	Button goAntiSheoompButton = new JoystickButton(clink,2);
+	Button getUpThereBench = new JoystickButton(clink,6);
 	public OI() {
 		gosheoompButton.whileHeld(new Sheoomp());
 		goAntiSheoompButton.whileHeld(new AntiSheoomp());
+		getUpThereBench.whileHeld(new Wheoop());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
