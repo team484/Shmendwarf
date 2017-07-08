@@ -2,6 +2,7 @@
 package org.usfirst.frc.team484.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team484.robot.commands.ExampleCommand;
 import org.usfirst.frc.team484.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team484.robot.subsystems.SphereIntake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,13 +21,13 @@ import org.usfirst.frc.team484.robot.subsystems.ExampleSubsystem;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+	public static final VictorSP sheOomp = new VictorSP(3);
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
+	public static final SphereIntake sphereIntake = new SphereIntake();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
