@@ -4,8 +4,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team484.robot.commands.Agitated;
 import org.usfirst.frc.team484.robot.commands.AntiSheoomp;
+import org.usfirst.frc.team484.robot.commands.DriveSpeed;
 import org.usfirst.frc.team484.robot.commands.ExampleCommand;
+import org.usfirst.frc.team484.robot.commands.Highnoonshoot;
+import org.usfirst.frc.team484.robot.commands.Realign;
 import org.usfirst.frc.team484.robot.commands.Sheoomp;
 import org.usfirst.frc.team484.robot.commands.Wheoop;
 
@@ -15,13 +19,20 @@ import org.usfirst.frc.team484.robot.commands.Wheoop;
  */
 public class OI {
 	public static Joystick clink = new Joystick(0);
+	public static Joystick SwarveStick = new Joystick(1);
 	Button gosheoompButton = new JoystickButton(clink,1);
 	Button goAntiSheoompButton = new JoystickButton(clink,2);
 	Button getUpThereBench = new JoystickButton(clink,6);
+	Button boi = new JoystickButton(clink,5);
+	Button realign = new JoystickButton(SwarveStick,2);
+	
 	public OI() {
 		gosheoompButton.whileHeld(new Sheoomp());
 		goAntiSheoompButton.whileHeld(new AntiSheoomp());
 		getUpThereBench.whileHeld(new Wheoop());
+		boi.whileHeld(new Highnoonshoot());
+		boi.whileHeld(new Agitated());
+		realign.whileHeld(new Realign());
 	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a

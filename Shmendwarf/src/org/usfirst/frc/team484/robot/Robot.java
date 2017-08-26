@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team484.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,9 +11,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team484.robot.commands.ExampleCommand;
+import org.usfirst.frc.team484.robot.commands.CupidShuffle;
 import org.usfirst.frc.team484.robot.subsystems.AscendModule;
+import org.usfirst.frc.team484.robot.subsystems.CarBoy;
 import org.usfirst.frc.team484.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team484.robot.subsystems.Shooter;
 import org.usfirst.frc.team484.robot.subsystems.SphereIntake;
+import org.usfirst.frc.team484.robot.subsystems.AgitatorOne;
+
+import com.ctre.CANTalon;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,13 +32,31 @@ public class Robot extends IterativeRobot {
 	public static final VictorSP sheOomp = new VictorSP(3);
 	public static final VictorSP climberLeft = new VictorSP(0);
 	public static final VictorSP climberTwo = new VictorSP(1);
+	public static final CANTalon highnoon = new CANTalon(9);
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final VictorSP agitated = new VictorSP(2);
+	public static final CANTalon FlCim = new CANTalon(1);
+	public static final CANTalon FlRot = new CANTalon(2);
+	public static final CANTalon RlCim = new CANTalon(3);
+	public static final CANTalon RlRot = new CANTalon(4);
+	public static final CANTalon FrCim = new CANTalon(5);
+	public static final CANTalon FrRot = new CANTalon(6);
+	public static final CANTalon RrCim = new CANTalon(7);
+	public static final CANTalon RrRot = new CANTalon(8);
+	public static final Encoder FLencoder = new Encoder(0,1);
+	public static final Encoder RLencoder = new Encoder(2,3);
+	public static final Encoder FRencoder = new Encoder(4,5);
+	public static final Encoder RRencoder = new Encoder(6,7);
+	public static final SwerveDrive swervey = new SwerveDrive(0.03, 0.0, 0.0, FLencoder, RLencoder, FRencoder, RRencoder, FlRot, RlRot, FrRot, RrRot, FlCim, RlCim, FrCim, RrCim, false);
 	public static OI oi;
 
-	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	Command autonomousCommand = new CupidShuffle();
 	public static final SphereIntake sphereIntake = new SphereIntake();
 	public static final AscendModule ascendModule = new AscendModule();
+	public static final Shooter shooter = new Shooter();
+	public static final AgitatorOne agitator = new AgitatorOne();
+	public static final CarBoy carBoy = new CarBoy();
+			
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -39,9 +64,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		FLencoder.setDistancePerPulse(0.86694762);
+		RLencoder.setDistancePerPulse(0.86694762);
+		FRencoder.setDistancePerPulse(0.86694762);
+		RRencoder.setDistancePerPulse(0.86694762);
+		swervey.setWheelbaseDimensions(26, 18);
+
 	}
 
 	/**
@@ -51,7 +79,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		FlRot.enableBrakeMode(false);
+		RlRot.enableBrakeMode(false);
+		FrRot.enableBrakeMode(false);
+		RrRot.enableBrakeMode(false);
 	}
 
 	@Override
@@ -72,7 +103,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		FlRot.enableBrakeMode(true);
+		RlRot.enableBrakeMode(true);
+		FrRot.enableBrakeMode(true);
+		RrRot.enableBrakeMode(true);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -82,8 +116,7 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		autonomousCommand.start();
 	}
 
 	/**
@@ -100,8 +133,12 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		autonomousCommand.cancel();
+		FlRot.enableBrakeMode(true);
+		RlRot.enableBrakeMode(true);
+		FrRot.enableBrakeMode(true);
+		RrRot.enableBrakeMode(true);
+		
 	}
 
 	/**
